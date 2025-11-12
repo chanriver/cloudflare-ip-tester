@@ -2,11 +2,13 @@ name: Cloudflare IP Speed Test
 
 on:
   schedule:
-    # 每天UTC时间0点、6点、12点、18点各运行一次（北京时间8点、14点、20点、2点）
     - cron: '0 0,6,12,18 * * *'
-  workflow_dispatch:  # 允许手动触发
+  workflow_dispatch:
   push:
     branches: [ main ]
+
+permissions:
+  contents: write
 
 jobs:
   speedtest:
@@ -15,7 +17,9 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
@@ -30,7 +34,6 @@ jobs:
       run: |
         mkdir -p data
         wget -q "https://git.io/GeoLite2-Country.mmdb" -O data/GeoLite2-Country.mmdb || echo "使用备用数据库"
-        # 如果下载失败，使用空文件占位
         if [ ! -s data/GeoLite2-Country.mmdb ]; then
           echo "下载数据库失败，将使用在线API查询"
           touch data/GeoLite2-Country.mmdb
@@ -47,8 +50,8 @@ jobs:
         
     - name: Commit and push results
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
         git add results/results.txt
         git commit -m "📊 Auto update Cloudflare IP test results [skip ci]" || exit 0
         git push
