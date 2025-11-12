@@ -1,19 +1,43 @@
-# Python
+# Cloudflare IP测速工具 - 精简版Git忽略文件
+
+# Python编译文件
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
+*.py[cod]
+*$py.class
+*.so
+
+# 虚拟环境
 env/
 venv/
 .venv/
 
-# 数据文件（大文件不上传）
-data/GeoLite2-Country.mmdb
+# IDE文件
+.vscode/
+.idea/
+*.iml
+*.ipr
 
-# 系统文件
+# 操作系统文件
 .DS_Store
 Thumbs.db
+ehthumbs.db
 
-# 日志文件
+# 大文件 - GeoIP数据库
+data/GeoLite2-Country.mmdb
+*.mmdb
+
+# 日志和缓存
 *.log
+logs/
+.cache/
+.pytest_cache/
+
+# 环境变量
+.env
+.env.local
+
+# 临时文件
+*.tmp
+*.bak
+*.swp
+*~
