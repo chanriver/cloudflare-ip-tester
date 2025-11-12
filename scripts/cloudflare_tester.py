@@ -184,9 +184,9 @@ class CloudflareTester:
         
         # 保存结果
         with open(self.output_path, 'w', encoding='utf-8') as f:
-            f.write("# Cloudflare最佳IPv4节点列表\n")
-            f.write(f"# 更新时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-            f.write("# 格式: IP#国家 国旗 延迟ms\n\n")
+           # f.write("# Cloudflare最佳IPv4节点列表\n")
+           # f.write(f"# 更新时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+           # f.write("# 格式: IP#国家 国旗 延迟ms\n\n")
             
             for result in sorted_results:
                 line = f"{result['ip']}#{result['country']} {result['flag']} {result['delay']:.0f}ms"
